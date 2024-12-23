@@ -122,8 +122,33 @@ namespace WinFormsXml
 
             // Definir el namespace manager para manejar los prefijos en el XML
             XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
+
+
+
+            /*
+             * Aquí están los namespaces definidos en el archivo:
+             * 
+             xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+             xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+             xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+             xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1"
+             xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
+             xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             */
+
             nsmgr.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
             nsmgr.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+            nsmgr.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+            nsmgr.AddNamespace("ext", "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2");
+            nsmgr.AddNamespace("sts", "dian:gov:co:facturaelectronica:Structures-2-1");
+            nsmgr.AddNamespace("xades", "http://uri.etsi.org/01903/v1.3.2#");
+            nsmgr.AddNamespace("xades141", "http://uri.etsi.org/01903/v1.4.1#");
+
+
+
 
             // Buscar el nodo del NIT del proveedor
             XmlNode nitNode = xmlDoc.SelectSingleNode("//cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID", nsmgr);
