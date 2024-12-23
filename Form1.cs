@@ -59,7 +59,7 @@ namespace WinFormsXml
 
 
 
-        private static void UsingXmlDocumentSearchforInformation(string path)//resivimos la ruta del xml
+        private static void UsingXmlDocumentSearchforInformation(string path)//resibimos la ruta del xml
         {
 
             // Cargar el archivo XML
