@@ -72,20 +72,28 @@ namespace WinFormsXml
              *A continuación, seleccionamos un nodo es este caso los del proveedor 
              *Luego  buscamos los datos específicos como por ejemplo el nombre del proveedor 
              *
+             *
+             * XML tiene nodos con prefijos (como cac y cbc), que están relacionados con espacios de nombres específicos. 
+             *Sin un XmlNamespaceManager, el programa no sabe a qué espacio de nombres pertenece cada prefijo, y
+             *no podría encontrar los nodos al hacer las consultas XPath.
              */
+
+
+
+
 
             // Definir el namespace manager para manejar los prefijos en el XML
             XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
-            nsmgr.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
-            nsmgr.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+            nsmgr.AddNamespace("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");// cac (Common Aggregate Components) Representa componentes agregados comunes, es decir, elementos que agrupan otros nodos.
+                        nsmgr.AddNamespace("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");//(Common Basic Components)Representa componentes básicos comunes, como texto, números, fechas, etc.
 
-            // Obtener el nodo del proveedor y lo guardamos en supplierNode (nodo del proveedor )
-            XmlNode supplierNode = xmlDoc.SelectSingleNode("//cac:AccountingSupplierParty/cac:Party", nsmgr);
+                        // Obtener el nodo del proveedor y lo guardamos en supplierNode (nodo del proveedor )
+                        XmlNode supplierNode = xmlDoc.SelectSingleNode("//cac:AccountingSupplierParty/cac:Party", nsmgr);// //cac:AccountingSupplierParty: Busca cualquier nodo AccountingSupplierParty que esté bajo el espacio de nombres cac. /cac:Party: Busca el nodo hijo Party bajo el espacio de nombres cac.
 
             if (supplierNode != null)
             {
                 // Obtener el nombre de la empresa, supplierNode: Representa el nodo del proveedor (<cac:Party>) que fue seleccionado previamente. 
-                XmlNode nameNode = supplierNode.SelectSingleNode("cac:PartyName/cbc:Name", nsmgr);//SelectSingleNode: Este método busca un nodo hijo dentro del nodo actual que coincida con la ruta
+                XmlNode nameNode = supplierNode.SelectSingleNode("cac:PartyName/cbc:Name", nsmgr);//SelectSingleNode: Este método busca un nodo hijo dentro del nodo actual que coincida con la ruta        Uso del nsmgr: El XmlNamespaceManager se pasa como argumento para que el parser entienda que cac corresponde al espacio de nombres especificado.
                 string supplierName = nameNode?.InnerText ?? "Nombre no encontrado";//Si el nodo <cbc:Name> existe, se almacena en nameNode. Si no existe, nameNode será null.
 
 
